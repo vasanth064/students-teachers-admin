@@ -1,12 +1,12 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { useAuth } from '../Context/AuthContext';
-
 const AddStudents = () => {
   const { signUpWithEmail } = useAuth();
   const studentUserInitialValues = {
     name: '',
     rollno: '',
+    photo: null,
     email: '',
     password: '',
     fatherName: '',
@@ -21,77 +21,87 @@ const AddStudents = () => {
     tutor: '',
     tutorID: '',
   };
+
   return (
     <section>
       <Formik
         initialValues={studentUserInitialValues}
         onSubmit={(values) => {
+          let photo = values.photo;
           let userData = values;
-          signUpWithEmail(userData);
+          delete userData.photo;
+          signUpWithEmail(userData, photo);
           document.querySelector('#studentsUserData').reset();
         }}>
-        <Form id='studentsUserData'>
-          <header>
-            <h1>Add Students</h1>
-          </header>
+        {({ setFieldValue }) => (
+          <Form id='studentsUserData'>
+            <h1>Add Student</h1>
 
-          <label>Name :</label>
-          <Field type='text' name='name' />
+            <label>Name :</label>
+            <Field type='text' name='name' />
 
-          <label>Roll No :</label>
-          <Field type='text' name='rollno' />
+            <label>Roll No :</label>
+            <Field type='text' name='rollno' />
 
-          <label>Email :</label>
-          <Field type='email' name='email' />
+            <label>Photo :</label>
+            <input
+              type='file'
+              name='photo'
+              onChange={(e) => setFieldValue('photo', e.currentTarget.files[0])}
+            />
 
-          <label>Password :</label>
-          <Field type='password' name='password' />
+            <label>Email :</label>
+            <Field type='email' name='email' />
 
-          <label>DoB :</label>
-          <Field type='date' name='dob' />
+            <label>Password :</label>
+            <Field type='password' name='password' />
 
-          <label>Father's Name :</label>
-          <Field type='text' name='fatherName' />
+            <label>DoB :</label>
+            <Field type='date' name='dob' />
 
-          <label>Phone Number :</label>
-          <Field type='text' name='phoneNumber' />
+            <label>Father's Name :</label>
+            <Field type='text' name='fatherName' />
 
-          <label>District :</label>
-          <Field type='text' name='district' />
+            <label>Phone Number :</label>
+            <Field type='text' name='phoneNumber' />
 
-          <label>State :</label>
-          <Field type='text' name='state' />
+            <label>District :</label>
+            <Field type='text' name='district' />
 
-          <label>Country :</label>
-          <Field type='text' name='country' />
+            <label>State :</label>
+            <Field type='text' name='state' />
 
-          <label>Address :</label>
-          <Field as='textarea' name='address' />
+            <label>Country :</label>
+            <Field type='text' name='country' />
 
-          <label>Department :</label>
-          <Field as='select' name='department'>
-            <option selected disabled>
-              Select
-            </option>
-            <option value='Department of Computer Engneering'>DCE</option>
-            <option value='Department of Mechanical Engneering'>DME</option>
-            <option value='Department of Electrical Engneering'>DCE</option>
-          </Field>
+            <label>Address :</label>
+            <Field as='textarea' name='address' />
 
-          <label>Batch :</label>
-          <Field type='text' name='batch' />
+            <label>Department :</label>
+            <Field as='select' name='department'>
+              <option selected disabled>
+                Select
+              </option>
+              <option value='Department of Computer Engneering'>DCE</option>
+              <option value='Department of Mechanical Engneering'>DME</option>
+              <option value='Department of Electrical Engneering'>DCE</option>
+            </Field>
 
-          <label>Program Co-ordinator :</label>
-          <Field type='text' name='programeCoordinator' />
+            <label>Batch :</label>
+            <Field type='text' name='batch' />
 
-          <label>Tutor :</label>
-          <Field type='text' name='tutor' />
+            <label>Program Co-ordinator :</label>
+            <Field type='text' name='programeCoordinator' />
 
-          <label>Tutor ID :</label>
-          <Field type='text' name='tutorID' />
+            <label>Tutor :</label>
+            <Field type='text' name='tutor' />
 
-          <button type='submit'>Submit</button>
-        </Form>
+            <label>Tutor ID :</label>
+            <Field type='text' name='tutorID' />
+
+            <button type='submit'>Submit</button>
+          </Form>
+        )}
       </Formik>
     </section>
   );

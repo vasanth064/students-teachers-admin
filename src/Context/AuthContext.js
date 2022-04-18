@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -6,9 +5,10 @@ import {
   signOut,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from './../Config/firebaseConfig';
+import { auth, db, storageBucket } from './../Config/firebaseConfig';
 
 const AuthContext = React.createContext();
 
@@ -22,8 +22,30 @@ const AuthenticationProvider = ({ children }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const gAuthProvider = new GoogleAuthProvider();
+  const [progress, setProgress] = useState(0);
 
-  const signUpWithEmail = async (userData) => {
+  //uploading files to storage bucket firebase
+  const firebaseUpload = (file) => {
+    if (!file) return;
+    const uniqueID = Date.now() + Math.floor(Math.random()).toString();
+    const storageRef = ref(storageBucket, `/files/${uniqueID}${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => console.log(url));
+      }
+    );
+  };
+
+  const signUpWithEmail = async (userData, photo) => {
     try {
       setError('');
       setLoading(true);
@@ -34,6 +56,7 @@ const AuthenticationProvider = ({ children }) => {
       );
       const studentsRef = doc(db, 'students', cred.user.uid);
       await setDoc(studentsRef, userData);
+      firebaseUpload(photo);
       naviagte('/');
     } catch {
       setError('Failed To SignIn');
