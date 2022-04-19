@@ -317,7 +317,7 @@ a strong,
 button {
   background-color: var(--color-link);
   border: 2px solid var(--color-link);
-  color: var(--color-bg);
+  color: white;
 }
 
 a em,

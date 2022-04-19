@@ -22,10 +22,10 @@ const AuthenticationProvider = ({ children }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const gAuthProvider = new GoogleAuthProvider();
-  const [progress, setProgress] = useState(0);
+  const [setProgress] = useState(0);
 
-  //uploading files to storage bucket firebase
-  const firebaseUpload = (file) => {
+  //uploading files to storage bucket firebase and add data
+  const firebaseUpload = (file, userData, cred) => {
     if (!file) return;
     const uniqueID = Date.now() + Math.floor(Math.random()).toString();
     const storageRef = ref(storageBucket, `/files/${uniqueID}${file.name}`);
@@ -40,7 +40,14 @@ const AuthenticationProvider = ({ children }) => {
       },
       (err) => console.log(err),
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => console.log(url));
+        getDownloadURL(uploadTask.snapshot.ref).then(async (url) => {
+          const studentsRef = doc(db, 'students', cred.user.uid);
+          let data = {
+            ...userData,
+            photo: url,
+          };
+          await setDoc(studentsRef, data);
+        });
       }
     );
   };
@@ -54,9 +61,7 @@ const AuthenticationProvider = ({ children }) => {
         userData.email,
         userData.password
       );
-      const studentsRef = doc(db, 'students', cred.user.uid);
-      await setDoc(studentsRef, userData);
-      firebaseUpload(photo);
+      firebaseUpload(photo, userData, cred);
       naviagte('/');
     } catch {
       setError('Failed To SignIn');
