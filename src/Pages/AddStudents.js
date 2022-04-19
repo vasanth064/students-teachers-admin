@@ -19,7 +19,7 @@ const AddStudents = () => {
     batch: '',
     programeCoordinator: '',
     tutor: '',
-    tutorID: '',
+    staffID: '',
   };
 
   return (
@@ -30,7 +30,7 @@ const AddStudents = () => {
           let photo = values.photo;
           let userData = values;
           delete userData.photo;
-          signUpWithEmail(userData, photo);
+          signUpWithEmail(userData, photo, 'students');
           document.querySelector('#studentsUserData').reset();
         }}>
         {({ setFieldValue }) => (

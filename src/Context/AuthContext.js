@@ -25,10 +25,13 @@ const AuthenticationProvider = ({ children }) => {
   const [setProgress] = useState(0);
 
   //uploading files to storage bucket firebase and add data
-  const firebaseUpload = (file, userData, cred) => {
+  const firebaseUpload = (file, userData, cred, userType) => {
     if (!file) return;
     const uniqueID = Date.now() + Math.floor(Math.random()).toString();
-    const storageRef = ref(storageBucket, `/files/${uniqueID}${file.name}`);
+    const storageRef = ref(
+      storageBucket,
+      `/${userType}/${uniqueID}${file.name}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       'state_changed',
@@ -41,18 +44,18 @@ const AuthenticationProvider = ({ children }) => {
       (err) => console.log(err),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (url) => {
-          const studentsRef = doc(db, 'students', cred.user.uid);
+          const usersRef = doc(db, userType, cred.user.uid);
           let data = {
             ...userData,
             photo: url,
           };
-          await setDoc(studentsRef, data);
+          await setDoc(usersRef, data);
         });
       }
     );
   };
 
-  const signUpWithEmail = async (userData, photo) => {
+  const signUpWithEmail = async (userData, photo, userType) => {
     try {
       setError('');
       setLoading(true);
@@ -61,7 +64,7 @@ const AuthenticationProvider = ({ children }) => {
         userData.email,
         userData.password
       );
-      firebaseUpload(photo, userData, cred);
+      firebaseUpload(photo, userData, cred, userType);
       naviagte('/');
     } catch {
       setError('Failed To SignIn');
