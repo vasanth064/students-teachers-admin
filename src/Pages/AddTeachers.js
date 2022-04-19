@@ -34,58 +34,71 @@ const AddTeachers = () => {
           document.querySelector('#studentsUserData').reset();
         }}>
         {({ setFieldValue }) => (
-          <Form id='teachersUserData'>
+          <Form id='teachersUserData' autoComplete='off'>
             <h1>Add Teachers</h1>
 
             <label>Name :</label>
-            <Field type='text' name='name' />
+            <Field type='text' name='name' required />
 
-            <label>ID :</label>
-            <Field type='text' name='rollno' />
+            <label>Staff ID :</label>
+            <Field type='text' name='staffID' required />
+
+            <label>Email :</label>
+            <Field type='email' name='email' required />
+
+            <label>Password :</label>
+            <Field type='password' name='password' required />
 
             <label>Department :</label>
-            <Field as='select' name='department'>
+            <Field as='select' name='department' required>
               <option selected disabled>
                 Select
               </option>
-              <option value='Department of Computer Engneering'>DCE</option>
-              <option value='Department of Mechanical Engneering'>DME</option>
-              <option value='Department of Electrical Engneering'>DCE</option>
+              <option value='Apparel Technology'>DAT</option>
+              <option value='Automobile Engneering'>DAE</option>
+              <option value='Computer Engneering'>DCE</option>
+              <option value='Computer Networking'>DCN</option>
+              <option value='Electrical and Electronics Engneering'>
+                DEEE
+              </option>
+              <option value='Electronics and Communication Engneering'>
+                DECE
+              </option>
+              <option value='Foundary Technology'>DFT</option>
+              <option value='Information Technology'>DIT</option>
+              <option value='Mechanical Engneering'>DME</option>
+              <option value='Mechatronics Engneering'>DMT</option>
+              <option value='Textile Technology'>DFT</option>
             </Field>
 
             <label>Landline :</label>
-            <Field type='text' name='landline' />
+            <Field type='text' name='landline' required />
 
             <label>Year of Joining :</label>
-            <Field type='text' name='yearOfJoining' />
+            <Field type='text' name='yearOfJoining' required />
 
             <label>Designation :</label>
-            <Field type='text' name='designation' />
+            <Field type='text' name='designation' required />
 
             <label>Qualification :</label>
-            <Field type='text' name='qualification' />
+            <Field type='text' name='qualification' required />
 
             <label>Area Of Specialization :</label>
-            <Field type='text' name='areaOfSpecialization' />
+            <Field type='text' name='areaOfSpecialization' required />
 
             <label>Courses Handled :</label>
-            <Field type='text' name='coursesHandled' />
+            <Field type='text' name='coursesHandled' required />
 
             <label>Photo :</label>
             <input
               type='file'
               name='photo'
               onChange={(e) => setFieldValue('photo', e.currentTarget.files[0])}
+              required
             />
 
-            <label>Email :</label>
-            <Field type='email' name='email' />
-
-            <label>Password :</label>
-            <Field type='password' name='password' />
-
             <label>Phone Number :</label>
-            <Field type='text' name='phoneNumber' />
+            <Field type='text' name='phoneNumber' required />
 
             <button type='submit'>Submit</button>
           </Form>
