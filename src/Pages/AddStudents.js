@@ -1,4 +1,4 @@
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../Context/AuthContext';
@@ -9,6 +9,7 @@ const AddStudents = () => {
   const [department, setDepartment] = useState('');
   const [tutor, setTutor] = useState('');
   const [staffID, setStaffID] = useState('');
+  const [count, setCount] = useState(1);
   const studentUserInitialValues = {
     name: '',
     rollno: '',
@@ -27,15 +28,18 @@ const AddStudents = () => {
     tutor: '',
     staffID: '',
   };
-  const teachersRef = collection(db, 'teachers');
-  const q = query(teachersRef, where('department', '==', department));
-  useEffect(
-    () =>
-      onSnapshot(q, (snapShot) =>
-        setTeachers(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      ),
-    [department, q]
-  );
+
+  useEffect(() => {
+    async function getData() {
+      const teachersRef = collection(db, 'teachers');
+      const q = query(teachersRef, where('department', '==', department));
+      const querySnapshot = await getDocs(q);
+      setTeachers(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+    }
+    getData();
+  }, [department]);
   return (
     <section>
       <Formik
