@@ -72,7 +72,7 @@ const AuthenticationProvider = ({ children }) => {
       setError('');
       setLoading(true);
       await signInWithPopup(auth, gAuthProvider);
-      naviagte('/home');
+      naviagte('/');
     } catch {
       setError('Failed To SignIn');
     }
