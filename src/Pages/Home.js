@@ -39,6 +39,7 @@ const SearchCard = () => {
   }, []);
   return (
     <Home>
+      <br />
       <header>
         <h1>Students</h1>
       </header>
@@ -55,11 +56,11 @@ const SearchCard = () => {
             />
           ))}
       </SearchResultsContainer>
+      <br />
       <header>
         <h1>Teachers</h1>
       </header>
       <SearchResultsContainer>
-        {console.log(teachers)}
         {teachers &&
           teachers.map((item, index) => {
             return (
