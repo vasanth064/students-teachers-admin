@@ -22,7 +22,6 @@ const AuthenticationProvider = ({ children }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const gAuthProvider = new GoogleAuthProvider();
-  const [setProgress] = useState(0);
 
   //uploading files to storage bucket firebase and add data
   const firebaseUpload = (file, userData, cred, userType) => {
@@ -36,10 +35,7 @@ const AuthenticationProvider = ({ children }) => {
     uploadTask.on(
       'state_changed',
       (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
+        Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
       },
       (err) => console.log(err),
       () => {

@@ -1,15 +1,14 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from './../Config/firebaseConfig';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../Context/AuthContext';
-import { db } from './../Config/firebaseConfig';
 const AddStudents = () => {
   const { signUpWithEmail } = useAuth();
   const [teachers, setTeachers] = useState([]);
   const [department, setDepartment] = useState('');
   const [tutor, setTutor] = useState('');
   const [staffID, setStaffID] = useState('');
-  const [count, setCount] = useState(1);
   const studentUserInitialValues = {
     name: '',
     rollno: '',
@@ -49,7 +48,6 @@ const AddStudents = () => {
           let userData = values;
           delete userData.photo;
           signUpWithEmail(userData, photo, 'students');
-          console.log(userData);
           document.querySelector('#studentsUserData').reset();
         }}>
         {({ setFieldValue }) => (

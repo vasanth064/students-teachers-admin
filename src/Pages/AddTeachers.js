@@ -30,8 +30,7 @@ const AddTeachers = () => {
           let userData = values;
           delete userData.photo;
           signUpWithEmail(userData, photo, 'teachers');
-          alert(JSON.parse(values));
-          document.querySelector('#studentsUserData').reset();
+          document.querySelector('#teachersUserData').reset();
         }}>
         {({ setFieldValue }) => (
           <Form id='teachersUserData' autoComplete='off'>
