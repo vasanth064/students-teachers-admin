@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
 
 const Login = () => {
-  const { googleSignIn, currentUser, logOut } = useAuth();
+  const { googleSignIn, currentUser } = useAuth();
   return (
     <div>
       {currentUser ? <Navigate to='/' /> : null}
