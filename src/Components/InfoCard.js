@@ -7,14 +7,13 @@ const Container = styled.div`
   border: none;
   justify-content: center;
   text-align: center;
-  background: rgba(255, 249, 249, 0.4);
+  background: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   text-decoration: none;
   color: black;
   display: block;
-  width: 35rem;
-  max-width: 35rem;
+  min-width: 25rem;
   padding-top: 2rem;
   overflow: hidden;
 `;
@@ -32,32 +31,30 @@ const Name = styled.h1`
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   line-height: 2.8rem;
   text-align: center;
   letter-spacing: 0.07em;
-  margin-top: 1.5rem;
 `;
 
 const Department = styled.h3`
   font-style: normal;
   font-weight: 400;
-  font-size: 1.8rem;
-  line-height: 2.1rem;
+  font-size: 1.6rem;
+  line-height: 2rem;
   text-align: center;
-  letter-spacing: 0.07em;
-  margin: 1rem;
+  letter-spacing: 0.01em;
 `;
 
 const ProfileImage = styled.img`
-  width: 15rem;
-  height: 15rem;
+  width: 12.5rem;
+  height: 12.5rem;
   object-fit: cover;
   vertical-align: middle;
   border: 1px solid rgba(0, 0, 0, 0.4);
   box-sizing: border-box;
   backdrop-filter: blur(240px);
-  border-radius: 75px;
+  border-radius: 50%;
 `;
 const Footer = styled.div`
   display: flex;
@@ -69,7 +66,9 @@ const Email = styled.a`
   width: 50%;
   color: white;
   background-color: black;
-  padding: 1.6rem 7rem;
+  display: flex;
+  place-content: center;
+  padding: 0.75rem 0;
   border-right: 1px solid white;
   background: #99add3;
   border-radius: 0px 0px 0px 20px;
@@ -78,9 +77,11 @@ const Phone = styled.a`
   text-decoration: none;
   color: white;
   display: block;
+  display: flex;
+  place-content: center;
   width: 50%;
   background-color: black;
-  padding: 1.6rem 7rem;
+  padding: 0.75rem 0;
   background: #99add3;
 `;
 
@@ -94,10 +95,10 @@ const InfoCard = ({ image, name, department, phoneNumber, email }) => {
       <Department>{department}</Department>
       <Footer>
         <Email href={`mailto:${email}`}>
-          <IoIosMail size='3rem' />
+          <IoIosMail size='2.5rem' />
         </Email>
         <Phone href={`tel:${phoneNumber}`}>
-          <FaPhoneAlt size='2.5rem' />
+          <FaPhoneAlt size='2rem' />
         </Phone>
       </Footer>
     </Container>
