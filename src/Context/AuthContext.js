@@ -21,6 +21,7 @@ const AuthenticationProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [pending, setpending] = useState(true);
   const gAuthProvider = new GoogleAuthProvider();
 
   //uploading files to storage bucket firebase and add data
@@ -90,23 +91,29 @@ const AuthenticationProvider = ({ children }) => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-
-    return unsubscribe;
-  }, []);
+   useEffect(
+    () =>
+      auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+        setpending(false);
+      }),
+    []
+  );
 
   const value = {
     currentUser,
     signUpWithEmail,
     googleSignIn,
+       pending,
     logOut,
     error,
     loading,
   };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return pending ? (
+    <h1>Signing You In 🔐<h1/>
+  ) : (
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthenticationProvider;
