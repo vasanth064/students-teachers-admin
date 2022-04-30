@@ -155,7 +155,7 @@ const AddStudents = () => {
             {department && tutor && (
               <>
                 <label>Tutor's Staff ID :</label>
-                <Field as='select' name='tutorID' disabled required>
+                <Field as='select' name='tutorID' required>
                   {teachers.map((teacher, index) => {
                     setStaffID(teacher.name === tutor ? teacher.staffID : null);
                     return (
