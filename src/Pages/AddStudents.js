@@ -159,7 +159,7 @@ const AddStudents = () => {
                   {teachers.map((teacher, index) => {
                     setStaffID(teacher.name === tutor ? teacher.staffID : null);
                     return (
-                      <option defaultValue={staffID} key={index}>
+                      <option value={staffID} key={index}>
                         {staffID}
                       </option>
                     );
