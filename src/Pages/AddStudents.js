@@ -4,7 +4,6 @@ import { Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { async } from '@firebase/util';
 const AddStudents = () => {
   const { signUpWithEmail } = useAuth();
   const [teachers, setTeachers] = useState([]);
