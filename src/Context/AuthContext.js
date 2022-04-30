@@ -110,7 +110,7 @@ const AuthenticationProvider = ({ children }) => {
     loading,
   };
   return pending ? (
-    <h1>Signing You In 🔐<h1/>
+    <h1>Signing You In 🔐</h1>
   ) : (
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
