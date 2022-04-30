@@ -155,11 +155,11 @@ const AddStudents = () => {
             {department && tutor && (
               <>
                 <label>Tutor's Staff ID :</label>
-                <Field as='select' name='tutorID' required>
+                <Field as='select' name='satffID' required disabled>
                   {teachers.map((teacher, index) => {
                     setStaffID(teacher.name === tutor ? teacher.staffID : null);
                     return (
-                      <option value={staffID} key={index}>
+                      <option defaultValue={staffID} key={index}>
                         {staffID}
                       </option>
                     );
