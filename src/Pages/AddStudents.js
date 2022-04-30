@@ -108,7 +108,7 @@ const AddStudents = () => {
             <Field type='date' name='dob' required />
 
             <label>Father's Name :</label>
-            <Field type='text' name='fatherName' required />
+            <Field type='text' name='fatherName' />
 
             <label>Phone Number :</label>
             <Field type='text' name='phoneNumber' required />
