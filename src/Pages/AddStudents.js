@@ -3,11 +3,13 @@ import { db } from './../Config/firebaseConfig';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { async } from '@firebase/util';
 const AddStudents = () => {
   const { signUpWithEmail } = useAuth();
   const [teachers, setTeachers] = useState([]);
   const [department, setDepartment] = useState('');
-  const [tutor, setTutor] = useState('');
+  const [tutor, setTutor] = useState(null);
   const [staffID, setStaffID] = useState('');
   const studentUserInitialValues = {
     name: '',
@@ -25,8 +27,9 @@ const AddStudents = () => {
     batch: '',
     programeCoordinator: '',
     tutor: '',
-    staffID: '',
+    tutorID: '',
   };
+  let navigate = useNavigate();
 
   useEffect(() => {
     async function getData() {
@@ -39,27 +42,33 @@ const AddStudents = () => {
     }
     getData();
   }, [department]);
+
+  useEffect(() => {
+    teachers &&
+      teachers.map((teacher) =>
+        teacher.name === tutor ? setStaffID(teacher.staffID) : null
+      );
+  }, [tutor, teachers]);
+
   return (
     <section>
       <Formik
         initialValues={studentUserInitialValues}
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           let photo = values.photo;
           let userData = values;
           delete userData.photo;
-          signUpWithEmail(userData, photo, 'students');
-          document.querySelector('#studentsUserData').reset();
+          await signUpWithEmail(userData, photo, 'students');
+          await document.querySelector('#studentsUserData').reset();
+          navigate('/');
         }}>
         {({ setFieldValue }) => (
           <Form id='studentsUserData' autoComplete='off'>
             <h1>Add Student</h1>
-
             <label>Name :</label>
             <Field type='text' name='name' required />
-
             <label>Roll No :</label>
             <Field type='text' name='rollno' required />
-
             <label>Department :</label>
             <Field
               as='select'
@@ -70,9 +79,7 @@ const AddStudents = () => {
                 setDepartment(e.target.value);
                 setFieldValue('department', e.target.value);
               }}>
-              <option selected disabled>
-                Select
-              </option>
+              <option disabled>Select</option>
               <option value='Apparel Technology'>DAT</option>
               <option value='Automobile Engneering'>DAE</option>
               <option value='Computer Engneering'>DCE</option>
@@ -89,7 +96,6 @@ const AddStudents = () => {
               <option value='Mechatronics Engneering'>DMT</option>
               <option value='Textile Technology'>DFT</option>
             </Field>
-
             <label>Photo :</label>
             <input
               type='file'
@@ -97,40 +103,28 @@ const AddStudents = () => {
               onChange={(e) => setFieldValue('photo', e.currentTarget.files[0])}
               required
             />
-
             <label>Email :</label>
             <Field type='email' name='email' required />
-
             <label>Password :</label>
             <Field type='password' name='password' required />
-
             <label>DoB :</label>
             <Field type='date' name='dob' required />
-
             <label>Father's Name :</label>
             <Field type='text' name='fatherName' />
-
             <label>Phone Number :</label>
             <Field type='text' name='phoneNumber' required />
-
             <label>District :</label>
             <Field type='text' name='district' required />
-
             <label>State :</label>
             <Field type='text' name='state' required />
-
             <label>Country :</label>
             <Field type='text' name='country' required />
-
             <label>Address :</label>
             <Field as='textarea' name='address' required />
-
             <label>Batch :</label>
             <Field type='text' name='batch' required />
-
             <label>Program Co-ordinator :</label>
             <Field type='text' name='programeCoordinator' required />
-
             {department && (
               <>
                 <label>Tutor :</label>
@@ -138,11 +132,11 @@ const AddStudents = () => {
                   as='select'
                   name='tutor'
                   onChange={(e) => {
-                    setFieldValue('tutor', e.target.value);
                     setTutor(e.target.value);
+                    setFieldValue('tutor', e.target.value);
                   }}
                   required>
-                  <option selected>Select</option>
+                  <option>Select</option>
                   {teachers.map(({ name }, index) => (
                     <option value={name} key={index}>
                       {name}
@@ -151,22 +145,15 @@ const AddStudents = () => {
                 </Field>
               </>
             )}
-
-            {department && tutor && (
-              <>
-                <label>Tutor's Staff ID :</label>
-                <Field as='select' name='satffID' required disabled>
-                  {teachers.map((teacher, index) => {
-                    setStaffID(teacher.name === tutor ? teacher.staffID : null);
-                    return (
-                      <option defaultValue={staffID} key={index}>
-                        {staffID}
-                      </option>
-                    );
-                  })}
-                </Field>
-              </>
-            )}
+            <>
+              <label>Tutor ID :</label>
+              <Field
+                type='text'
+                name='tutorID'
+                required
+                onClick={() => setFieldValue('tutorID', staffID)}
+              />
+            </>
             <button type='submit'>Submit</button>
           </Form>
         )}

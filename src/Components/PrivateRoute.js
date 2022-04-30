@@ -8,10 +8,12 @@ const AdminEmails = [
   'rajkumardce19dx18@gmail.com',
   'ashokku51202@gmail.com',
 ];
+
 export const PrivateRoute = ({ children }) => {
-  const { currentUser, logOut } = useAuth();
+  const { currentUser, logOut, pending } = useAuth();
   const [adminEmails] = useState(AdminEmails);
-  return currentUser && adminEmails.includes(currentUser.email)
+
+  return !pending && currentUser && adminEmails.includes(currentUser.email)
     ? children
     : logOut() && <Navigate to='/login' />;
 };
