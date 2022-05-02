@@ -91,7 +91,7 @@ const AuthenticationProvider = ({ children }) => {
     setLoading(false);
   };
 
-   useEffect(
+  useEffect(
     () =>
       auth.onAuthStateChanged((user) => {
         setCurrentUser(user);
@@ -104,13 +104,15 @@ const AuthenticationProvider = ({ children }) => {
     currentUser,
     signUpWithEmail,
     googleSignIn,
-       pending,
+    pending,
     logOut,
     error,
     loading,
   };
   return pending ? (
-    <h1>Signing You In 🔐</h1>
+    <div className='center'>
+      <h1>Signing You In 🔐</h1>
+    </div>
   ) : (
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );

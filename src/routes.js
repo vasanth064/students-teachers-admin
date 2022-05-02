@@ -1,4 +1,5 @@
 import { PrivateRoute } from './Components/PrivateRoute';
+import AddDataFirestore from './Pages/AddDataFirestore';
 import AddStudents from './Pages/AddStudents';
 import AddTeachers from './Pages/AddTeachers';
 import Home from './Pages/Home';
@@ -28,6 +29,15 @@ export const routes = [
     component: (
       <PrivateRoute>
         <AddTeachers />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/AddData',
+    name: 'Add Data',
+    component: (
+      <PrivateRoute>
+        <AddDataFirestore />
       </PrivateRoute>
     ),
   },
