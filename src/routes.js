@@ -5,6 +5,7 @@ import AddTeachers from './Pages/AddTeachers';
 import ExamTimetable from './Pages/ExamTimetable';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
+import TestTimetable from './Pages/TestTimetable';
 export const routes = [
   {
     path: '/',
@@ -34,11 +35,11 @@ export const routes = [
     ),
   },
   {
-    path: '/AddData',
-    name: 'Add Data',
+    path: '/TestTimetable',
+    name: 'Test Timetable',
     component: (
       <PrivateRoute>
-        <AddDataFirestore />
+        <TestTimetable />
       </PrivateRoute>
     ),
   },
@@ -48,6 +49,15 @@ export const routes = [
     component: (
       <PrivateRoute>
         <ExamTimetable />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/AddData',
+    name: 'Add Data',
+    component: (
+      <PrivateRoute>
+        <AddDataFirestore />
       </PrivateRoute>
     ),
   },

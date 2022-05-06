@@ -2,20 +2,21 @@ import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirestore } from './../Context/FirestoreContext';
-const ExamTimetable = () => {
+
+const TestTimetable = () => {
   let navigate = useNavigate();
   const [timeTable, setTimetable] = useState([]);
   const { addData } = useFirestore();
   return (
     <>
       <section>
-        <h2>Exam TimeTable</h2>
+        <h2>Test TimeTable</h2>
       </section>
       <section>
         <Formik
           initialValues={{
             date: '',
-            session: '',
+            slot: '',
             courseCode: '',
             courseTitle: '',
           }}
@@ -31,11 +32,15 @@ const ExamTimetable = () => {
               <Field type='text' name='courseCode' required />
               <label>Course Title</label>
               <Field type='text' name='courseTitle' required />
-              <label>Session</label>
-              <Field as='select' name='session' required>
-                <option>select</option>
-                <option value='FN'>FN</option>
-                <option value='AN'>AN</option>
+              <label>Slot</label>
+              <Field as='select' name='slot' required>
+                <option>Select</option>
+                <option value='F1'>F1</option>
+                <option value='F2'>F2</option>
+                <option value='F3'>F3</option>
+                <option value='A1'>A1</option>
+                <option value='A2'>A2</option>
+                <option value='A3'>A3</option>
               </Field>
               <button type='submit'>ADD</button>
             </Form>
@@ -48,7 +53,7 @@ const ExamTimetable = () => {
           <thead>
             <tr>
               <th>Date</th>
-              <th>Session</th>
+              <th>Slot</th>
               <th>Course Code</th>
               <th>Course Title</th>
               <th>Actions</th>
@@ -58,7 +63,7 @@ const ExamTimetable = () => {
             {timeTable.map((item, index) => (
               <tr key={index}>
                 <td>{item.date}</td>
-                <td>{item.session}</td>
+                <td>{item.slot}</td>
                 <td>{item.courseCode}</td>
                 <td>{item.courseTitle}</td>
                 <td>
@@ -81,21 +86,22 @@ const ExamTimetable = () => {
             batch: '',
             department: '',
             semester: '',
+            testNo: '',
           }}
           onSubmit={async (values) => {
             const data = {
               ...values,
               timeTable,
             };
-            await addData('examTimetable', data);
-            await document.querySelector('#examTimetable').reset();
+            await addData('testTimetable', data);
+            await document.querySelector('#testTimetable').reset();
             navigate('/');
           }}>
           {({ isSubmitting }) => (
-            <Form id='examTimetable' autoComplete='off'>
+            <Form id='testTimetable' autoComplete='off'>
               <label>Batch :</label>
               <Field as='select' name='batch' required>
-                <option disabled>Select</option>
+                <option>Select</option>
                 <option value='2019'>2018</option>
                 <option value='2019'>2019</option>
                 <option value='2019'>2020</option>
@@ -104,7 +110,7 @@ const ExamTimetable = () => {
               </Field>
               <label>Department :</label>
               <Field as='select' name='department' required>
-                <option disabled>Select</option>
+                <option>Select</option>
                 <option value='Apparel Technology'>DAT</option>
                 <option value='Automobile Engneering'>DAE</option>
                 <option value='Computer Engneering'>DCE</option>
@@ -123,7 +129,7 @@ const ExamTimetable = () => {
               </Field>
               <label>Semester :</label>
               <Field as='select' name='semester' required>
-                <option disabled>Select</option>
+                <option>Select</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
                 <option value='3'>3</option>
@@ -132,6 +138,13 @@ const ExamTimetable = () => {
                 <option value='6'>6</option>
                 <option value='7'>7</option>
                 <option value='8'>8</option>
+              </Field>
+              <label>Test No :</label>
+              <Field as='select' name='testNo' required>
+                <option>Select</option>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
               </Field>
               <button type='submit' disabled={isSubmitting}>
                 Submit
@@ -144,4 +157,4 @@ const ExamTimetable = () => {
   );
 };
 
-export default ExamTimetable;
+export default TestTimetable;
