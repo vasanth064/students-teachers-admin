@@ -7,9 +7,8 @@ import InfoCard from '../Components/InfoCard';
 const Home = styled.div``;
 const SearchResultsContainer = styled.div`
   display: flex;
-  margin-top: 5rem;
   flex-wrap: wrap;
-  gap: 6rem;
+  gap: 1.5rem;
   justify-content: center;
 `;
 

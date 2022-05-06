@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaPhoneAlt } from 'react-icons/fa';
-import { IoIosMail } from 'react-icons/io';
 
 const Container = styled.div`
   border: none;
@@ -13,8 +11,8 @@ const Container = styled.div`
   text-decoration: none;
   color: black;
   display: block;
-  min-width: 25rem;
-  padding-top: 2rem;
+  min-width: 20rem;
+  padding: 0.5rem;
   overflow: hidden;
 `;
 const NameContainer = styled.div`
@@ -25,23 +23,22 @@ const NameContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
 `;
 const Name = styled.h1`
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 1.8rem;
-  line-height: 2.8rem;
   text-align: center;
+  width: min-content;
+  word-wrap: break-word;
   letter-spacing: 0.07em;
 `;
 
-const Department = styled.h3`
+const Department = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 1.6rem;
-  line-height: 2rem;
   text-align: center;
   letter-spacing: 0.01em;
 `;
@@ -56,34 +53,6 @@ const ProfileImage = styled.img`
   backdrop-filter: blur(240px);
   border-radius: 50%;
 `;
-const Footer = styled.div`
-  display: flex;
-  width: 100%;
-`;
-const Email = styled.a`
-  text-decoration: none;
-  display: block;
-  width: 50%;
-  color: white;
-  background-color: black;
-  display: flex;
-  place-content: center;
-  padding: 0.75rem 0;
-  border-right: 1px solid white;
-  background: #99add3;
-  border-radius: 0px 0px 0px 20px;
-`;
-const Phone = styled.a`
-  text-decoration: none;
-  color: white;
-  display: block;
-  display: flex;
-  place-content: center;
-  width: 50%;
-  background-color: black;
-  padding: 0.75rem 0;
-  background: #99add3;
-`;
 
 const InfoCard = ({ image, name, department, phoneNumber, email }) => {
   return (
@@ -93,14 +62,6 @@ const InfoCard = ({ image, name, department, phoneNumber, email }) => {
         <Name>{name}</Name>
       </NameContainer>
       <Department>{department}</Department>
-      <Footer>
-        <Email href={`mailto:${email}`}>
-          <IoIosMail size='2.5rem' />
-        </Email>
-        <Phone href={`tel:${phoneNumber}`}>
-          <FaPhoneAlt size='2rem' />
-        </Phone>
-      </Footer>
     </Container>
   );
 };

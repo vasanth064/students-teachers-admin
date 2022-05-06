@@ -2,6 +2,7 @@ import { PrivateRoute } from './Components/PrivateRoute';
 import AddDataFirestore from './Pages/AddDataFirestore';
 import AddStudents from './Pages/AddStudents';
 import AddTeachers from './Pages/AddTeachers';
+import ExamTimetable from './Pages/ExamTimetable';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 export const routes = [
@@ -38,6 +39,15 @@ export const routes = [
     component: (
       <PrivateRoute>
         <AddDataFirestore />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/ExamTimetable',
+    name: 'Exam Timetable',
+    component: (
+      <PrivateRoute>
+        <ExamTimetable />
       </PrivateRoute>
     ),
   },
