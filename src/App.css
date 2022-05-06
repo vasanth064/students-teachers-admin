@@ -5,7 +5,36 @@
   align-items: center;
   justify-content: center;
 }
-
+.sidebarContainer {
+  width: auto;
+  position: absolute;
+  top: 5rem;
+  left: 0;
+}
+@media screen and (max-width: 1518px) {
+  .sidebarContainer {
+    top: 0;
+    position: relative;
+  }
+  .sidebar > img {
+    display: none;
+  }
+}
+.sidebar {
+  margin: 0;
+  padding: 2rem 1rem;
+  list-style: none;
+  height: 100%;
+  border: 2.5px solid white;
+}
+.sidebarItem {
+  text-align: center;
+  border-bottom: 1px solid white;
+}
+.sidebarItem > a {
+  padding: 1rem 2rem;
+  display: block;
+}
 /* MVP.css v1.8 - https://github.com/andybrewer/mvp */
 
 :root {
