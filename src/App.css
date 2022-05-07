@@ -497,7 +497,7 @@ table tr td:first-child {
   text-align: var(--justify-normal);
 }
 
-table tr:nth-child(even) {
+tbody tr:nth-child(even) {
   background-color: var(--color-accent);
 }
 
