@@ -56,6 +56,7 @@ const AddStudents = () => {
         onSubmit={async (values) => {
           let photo = values.photo;
           let userData = values;
+          userData.semester='1';
           delete userData.photo;
           await signUpWithEmail(userData, photo, 'students');
           await document.querySelector('#studentsUserData').reset();
