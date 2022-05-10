@@ -33,11 +33,13 @@ const ClassTimetable = () => {
               <label>Day</label>
               <Field as='select' name='weekDay' required>
                 <option>Select</option>
-                <option value='Monday'>Monday</option>
-                <option value='Tuesday'>Tuesday</option>
-                <option value='Wednesday'>Wednesday</option>
-                <option value='ThursDay'>ThursDay</option>
-                <option value='Friday'>Friday</option>
+                <option value='0'>Sunday</option>
+                <option value='1'>Monday</option>
+                <option value='2'>Tuesday</option>
+                <option value='3'>Wednesday</option>
+                <option value='4'>ThursDay</option>
+                <option value='5'>Friday</option>
+                <option value='6'>Saturday</option>
               </Field>
               <label>Hour</label>
               <Field as='select' name='hour' required>
