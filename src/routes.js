@@ -4,6 +4,7 @@ import AddStudents from './Pages/AddStudents';
 import AddTeachers from './Pages/AddTeachers';
 import ClassTimetable from './Pages/ClassTimetable';
 import ExamTimetable from './Pages/ExamTimetable';
+import FacePrintUpload from './Pages/FacePrintUpload';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import TestTimetable from './Pages/TestTimetable';
@@ -68,6 +69,15 @@ export const routes = [
     component: (
       <PrivateRoute>
         <AddDataFirestore />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/AddFaceData',
+    name: 'Face Data Upload',
+    component: (
+      <PrivateRoute>
+        <FacePrintUpload />
       </PrivateRoute>
     ),
   },
