@@ -1,10 +1,11 @@
+import { arrayUnion, where } from 'firebase/firestore';
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect } from 'react';
 import { useFirestore } from '../Context/FirestoreContext';
 import { loadModels, getFullFaceDescription } from './../api/faceapi';
 
 const FacePrintUpload = () => {
-  const { addData } = useFirestore();
+  const { addData, getData, updateData } = useFirestore();
   useEffect(() => {
     loadModels();
   }, []);
@@ -44,7 +45,7 @@ const FacePrintUpload = () => {
               };
               const data = await getData(
                 'faceData',
-                [where('rollno', '==', userData.rollno)],
+                [where('rollno', '==', values.rollno)],
                 true
               );
               console.log(data);
@@ -57,12 +58,10 @@ const FacePrintUpload = () => {
                 });
                 document.querySelector('#facePrintForm').reset();
                 document.querySelector('#facePrintUpload').value = '';
-                getFaceData();
               } else {
                 await addData('faceData', faceData);
                 document.querySelector('#facePrintForm').reset();
                 document.querySelector('#facePrintUpload').value = '';
-                getFaceData();
               }
             }
           }}>
