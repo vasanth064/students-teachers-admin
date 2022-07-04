@@ -35,18 +35,35 @@ const FacePrintUpload = () => {
               document.querySelector('#facePrintForm').reset();
               document.querySelector('#facePrintUpload').value = '';
             } else if (fullFaceDescription.length === 1) {
+              let des = new Array(...fullFaceDescription[0].descriptor);
               const faceData = {
                 rollno: values.rollno.toUpperCase(),
-                date: new Date().toLocaleString(),
-                face_data: new Array(...fullFaceDescription[0].descriptor),
-                department: values.department,
                 batch: values.batch,
+                department: values.department,
+                face_data: [{ des, date: new Date().toLocaleString() }],
               };
-              await addData('faceData', faceData);
-              console.log(faceData);
-              document.querySelector('#facePrintForm').reset();
-              document.querySelector('#facePrintUpload').value = '';
-              alert('Add Succes');
+              const data = await getData(
+                'faceData',
+                [where('rollno', '==', userData.rollno)],
+                true
+              );
+              console.log(data);
+              if (data) {
+                await updateData('faceData', data[0].uid, {
+                  face_data: arrayUnion({
+                    des,
+                    date: new Date().toLocaleString(),
+                  }),
+                });
+                document.querySelector('#facePrintForm').reset();
+                document.querySelector('#facePrintUpload').value = '';
+                getFaceData();
+              } else {
+                await addData('faceData', faceData);
+                document.querySelector('#facePrintForm').reset();
+                document.querySelector('#facePrintUpload').value = '';
+                getFaceData();
+              }
             }
           }}>
           {({ isSubmitting, setFieldValue }) => (
